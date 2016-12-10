@@ -6,7 +6,7 @@ public class KeyPair {
 
 	public KeyPair(BigInteger n, BigInteger[] xyG) {
 		privateKey = BigIntExtend.randomLessThanN(n);
-		publicKey = ECOperations.negation(privateKey.multiply(xyG[0]));
+		// publicKey = ECOperations.negation(privateKey.multiply(xyG[0]));
 	}
 
 	public BigInteger getPublicKey() {
