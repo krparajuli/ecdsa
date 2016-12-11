@@ -38,8 +38,8 @@ public class EllipticCurve {
 	public BigInteger getN() {return n;}
 	public BigInteger getSeed() {return seed;}
 	public BigInteger getA() {return a;}
-	public BigInteger getC() {return c;}
 	public BigInteger getB() {return b;}
+	public BigInteger getC() {return c;}
 	public BigInteger[] getXyG() {return xyG;}
 	public BigInteger getXG() {return xG;}
 	public BigInteger getyG() {return yG;}
