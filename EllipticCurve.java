@@ -4,14 +4,15 @@ import java.util.Scanner;
 
 public class EllipticCurve {
 
-	public BigInteger p;
-	public BigInteger n;
-	public BigInteger seed;
-	public BigInteger c;
-	public BigInteger b;
-	public BigInteger[] xyG;
-	public BigInteger xG;
-	public BigInteger yG;
+	private BigInteger p;
+	private BigInteger n;
+	private BigInteger seed;
+	private BigInteger a = BigInteger.valueOf(-3);
+	private BigInteger c;
+	private BigInteger b;
+	private BigInteger[] xyG;
+	private BigInteger xG;
+	private BigInteger yG;
 
 	public EllipticCurve() {
 		try {	
@@ -32,6 +33,16 @@ public class EllipticCurve {
 			System.out.println("Error!");	     
 		}
 	}
+
+	public BigInteger getP() {return p;}
+	public BigInteger getN() {return n;}
+	public BigInteger getSeed() {return seed;}
+	public BigInteger getA() {return a;}
+	public BigInteger getC() {return c;}
+	public BigInteger getB() {return b;}
+	public BigInteger[] getXyG() {return xyG;}
+	public BigInteger getXG() {return xG;}
+	public BigInteger getyG() {return yG;}
 
 	public String toString() {
 		//return "Good EllipticCurve";

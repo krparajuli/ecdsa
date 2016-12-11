@@ -9,20 +9,33 @@ public class SignatureApplication {
 		// System.out.println(ec1.toString());
 
 		BigInteger n = BigInteger.valueOf(23);
+		//BigInteger n = BigInteger.valueOf(1);
 
 		BigInteger[] point1 = new BigInteger[2];
 		point1[0] = BigInteger.valueOf(4);
 		point1[1] = BigInteger.valueOf(7);
 
 		BigInteger[] point2 = new BigInteger[2];
-		point2[0] = BigInteger.valueOf(13);
-		point2[1] = BigInteger.valueOf(11);
+		point2[0] = BigInteger.valueOf(0);
+		point2[1] = BigInteger.valueOf(2);
 
-		BigInteger[] res = ECOperations.pointAddition(point1, point2, n);
-		System.out.println(ECOperations.printPoint(point1));
+		// BigInteger[] res = ECOperations.pointAddition(point1, point2, n);
+		// System.out.println(ECOperations.printPoint(point1));
+		// System.out.println(ECOperations.printPoint(point2));
+		// System.out.println(ECOperations.printPoint(res));
+
+
+
+		// BigInteger[] res2 = ECOperations.pointDoubling(point2, n, BigInteger.ONE);
+		// System.out.println(ECOperations.printPoint(point2));
+		// //System.out.println(ECOperations.printPoint(point2));
+		// System.out.println(ECOperations.printPoint(res2));
+
+
+		BigInteger[] res3 = ECOperations.pointMultiply(point2, n, BigInteger.ONE, BigInteger.valueOf(30));
 		System.out.println(ECOperations.printPoint(point2));
-		System.out.println(ECOperations.printPoint(res));
-
+		// //System.out.println(ECOperations.printPoint(point2));
+		System.out.println(ECOperations.printPoint(res3));
 
 		// KeyPair kp = new KeyPair(ec1.n, ec1.xyG);
 
