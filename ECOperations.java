@@ -59,6 +59,7 @@ public class ECOperations {
 					val = doubledP;
 					set = true;
 				}
+				System.out.println("|"+c+"|");
 			}
 			doubledP = pointDoubling(doubledP, n, a);
 		}
