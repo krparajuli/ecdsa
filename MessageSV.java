@@ -41,11 +41,12 @@ public class MessageSV {
 		BigInteger u1 = (e.multiply(w)).mod(n);
 		BigInteger u2 = (r.multiply(w)).mod(n);
 
-		BigInteger[] X = pointMultiply(G, n, a, u1) + pointMultiply(pvkQ, n, a, u2); 
+		BigInteger[] X = ECOperations.pointAddition(ECOperations.pointMultiply(G, n, a, u1), ECOperations.pointMultiply(pbkQ, n, a, u2), n); 
 
+		s = X[0].mod(n);
 
-
-		return true;
+		if (s.compareTo(r) == 0) return true;
+		return false;
 	}
 
 	public static String SHAsum(byte[] convertme) throws NoSuchAlgorithmException {
