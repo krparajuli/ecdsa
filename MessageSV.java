@@ -7,20 +7,45 @@ import java.util.Formatter;
 
 public class MessageSV {
 	
-	public static void messageSign(String msg, BigInteger n, BigInteger[] g, BigInteger a) throws NoSuchAlgorithmException {
-		BigInteger k = BigIntExtend.randomLessThanN(n);
+	public static BigInteger[] messageSign(String msg, BigInteger n, BigInteger[] G, BigInteger a, BigInteger pvkd) throws NoSuchAlgorithmException {
+		BigInteger k, kInv, r, e, s;
+		BigInteger[] kG;
 
-		BigInteger[] kG = ECOperations.pointMultiply(g, n, a, k);
-		BigInteger r;
 		do {
-			r = kG[0].mod(n);
-		} while (r.compareTo(BigInteger.ZERO) == 0);
-		BigInteger kInv = k.modInverse(n);
+			do {
+				k = BigIntExtend.randomLessThanN(n);
+				kG = ECOperations.pointMultiply(G, n, a, k);
+				r = kG[0].mod(n);
+			} while (r.compareTo(BigInteger.ZERO) == 0);
 
-		BigInteger bi = new BigInteger(SHAsum(msg.getBytes()), 16);
+			kInv = k.modInverse(n);
+			e = new BigInteger(SHAsum(msg.getBytes()), 16);
+			s = (kInv.multiply(e.add(pvkd.multiply(r)))).mod(n);
+		} while (s.compareTo(BigInteger.ZERO) == 0);
+
+		kG[0] = r;
+		kG[1] = s;
+		return kG;
+	}
+
+	public static boolean messageVerify(String msg, BigInteger[] sign, BigInteger n, BigInteger[] G, BigInteger a, BigInteger[] pbkQ) throws NoSuchAlgorithmException {
+		BigInteger r = sign[0];
+		BigInteger s = sign[1];
+
+		if (r.compareTo(n) >= 0) return false;
+		if (s.compareTo(n) >= 0) return false;
+		
+		BigInteger e = new BigInteger(SHAsum(msg.getBytes()), 16);
+		BigInteger w = s.modInverse(n);
+
+		BigInteger u1 = (e.multiply(w)).mod(n);
+		BigInteger u2 = (r.multiply(w)).mod(n);
+
+		BigInteger[] X = pointMultiply(G, n, a, u1) + pointMultiply(pvkQ, n, a, u2); 
 
 
 
+		return true;
 	}
 
 	public static String SHAsum(byte[] convertme) throws NoSuchAlgorithmException {
