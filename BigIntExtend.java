@@ -8,7 +8,7 @@ public class BigIntExtend {
 		Random rnd = new Random();
 		do {
 		    r = new BigInteger(n.bitLength(), rnd);
-		} while (r.compareTo(n) >= 0);
+		} while (r.compareTo(n) >= 0); //ALSO greate than 0
 		return r;
 	}
 }
