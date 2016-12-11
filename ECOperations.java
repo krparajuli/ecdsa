@@ -43,6 +43,7 @@ public class ECOperations {
 	}
 
 	public static BigInteger[] pointMultiply(BigInteger[] p1, BigInteger n, BigInteger a, BigInteger mult) {
+		System.out.println("Entered Function");
 		BigInteger[] val = new BigInteger[2];
 		BigInteger[] doubledP = p1;
 
@@ -50,8 +51,10 @@ public class ECOperations {
 		String binMult = mult.toString(2);
 		int binMultLen = binMult.length();
 
-		//0 = 48
+		System.out.println("Entering Loop");
+
 		for (int c=binMultLen-1; c>= 0; c--) {
+			System.out.print(c);
 			if (binMult.charAt(c) == '1') {
 				if (set) {
 					val = pointAddition(val, doubledP, n);
@@ -59,7 +62,7 @@ public class ECOperations {
 					val = doubledP;
 					set = true;
 				}
-				System.out.println("|"+c+"|");
+				System.out.print("|"+c+"|");
 			}
 			doubledP = pointDoubling(doubledP, n, a);
 		}

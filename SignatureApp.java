@@ -11,6 +11,7 @@ public class SignatureApp {
 		BigInteger a = ec1.getA();
 		BigInteger[] g = ec1.getXyG();
 
+		System.out.print("HERE");
 		KeyPair kp = new KeyPair(g, a, n);
 
 
