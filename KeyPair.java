@@ -1,21 +1,20 @@
 import java.math.BigInteger;
 
 public class KeyPair {
-	public BigInteger publicKey;
+	public BigInteger[] publicKey;
 	public BigInteger privateKey;
 
-	public KeyPair(BigInteger n, BigInteger[] xyG) {
+	public KeyPair(BigInteger[] point, BigInteger n, BigInteger a) {
 		privateKey = BigIntExtend.randomLessThanN(n);
-		publicKey = ECOperations.negation(privateKey.multiply(xyG[0]));
+		publicKey = ECOperations.pointMultiply(point, n, a, privateKey);
 	}
 
-	public BigInteger getPublicKey() {
+	public BigInteger[] getPublicKey() {
 		return this.publicKey;
 	}
 
 	public BigInteger getPrivateKey() {
 		return this.privateKey;
  	}
- // public KeyValidation;
-
+	// public KeyValidation;
 }
