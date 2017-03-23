@@ -1,19 +1,28 @@
+/*
+ * File: MessageSV.java
+ * Author: Kalyan Parajuli
+ * Role: Contains static method to sign the messages and verify the signature
+ */
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
-
-
 public class MessageSV {
 	
+	/*
+	 * function: messageSign - sign the message using the private key
+	 * returns: Array kG containing (r,s) - signature
+	 */
 	public static BigInteger[] messageSign(String msg, BigInteger n, BigInteger[] G, BigInteger a, BigInteger pvkd) throws NoSuchAlgorithmException {
+		System.out.println("Signing the message ....");
 		BigInteger k, kInv, r, e, s;
 		BigInteger[] kG;
 
 		do {
 			do {
-				k = BigIntExtend.randomLessThanN(n);
+				k = BigInteger.valueOf(1);
 				kG = ECOperations.pointMultiply(G, n, a, k);
 				r = kG[0].mod(n);
 			} while (r.compareTo(BigInteger.ZERO) == 0);
@@ -25,15 +34,28 @@ public class MessageSV {
 
 		kG[0] = r;
 		kG[1] = s;
+		System.out.println("Message SIGNED");
 		return kG;
 	}
 
+	/*
+	 * function: messageVerify - sign the message using the private key
+	 * returns: boolean  - verification Status
+	 */
+
 	public static boolean messageVerify(String msg, BigInteger[] sign, BigInteger n, BigInteger[] G, BigInteger a, BigInteger[] pbkQ) throws NoSuchAlgorithmException {
+		System.out.println("Verifying Message ......");
 		BigInteger r = sign[0];
 		BigInteger s = sign[1];
 
-		if (r.compareTo(n) >= 0) return false;
-		if (s.compareTo(n) >= 0) return false;
+		if (r.compareTo(n) >= 0) {
+			System.out.println("Message NOT VERIFIED");
+			return false;
+		}
+		if (s.compareTo(n) >= 0) {
+			System.out.println("Message NOT VERIFIED");
+			return false;
+		}
 		
 		BigInteger e = new BigInteger(SHAsum(msg.getBytes()), 16);
 		BigInteger w = s.modInverse(n);
@@ -42,10 +64,15 @@ public class MessageSV {
 		BigInteger u2 = (r.multiply(w)).mod(n);
 
 		BigInteger[] X = ECOperations.pointAddition(ECOperations.pointMultiply(G, n, a, u1), ECOperations.pointMultiply(pbkQ, n, a, u2), n); 
+ 
+		BigInteger v = X[0].mod(n);
 
-		s = X[0].mod(n);
+		if (v.compareTo(r) == 0) {
+			System.out.println("Message VERIFIED");
+			return true;
+		}
 
-		if (s.compareTo(r) == 0) return true;
+		System.out.println("Message NOT VERIFIED");
 		return false;
 	}
 

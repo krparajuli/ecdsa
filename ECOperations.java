@@ -1,16 +1,28 @@
+/*
+ * File: ECOperations.java
+ * Author: Kalyan Parajuli
+ * Role: Contains all EC point arithmetic which can be used as static methods 
+ */
+
 import java.math.BigInteger;
 import java.lang.String;
 
 public class ECOperations {
 
-	
+	/*
+	 * negation: Function to get the negative of the point p in EC
+	 */
 	public static BigInteger[] negation(BigInteger[] p) {
 		BigInteger[] q = new BigInteger[2];
-		q[0] = p[0];
-		q[1] = p[1].multiply(BigInteger.valueOf(-1));
+		q[0] = p[0];	//same x-coordinate
+		q[1] = p[1].multiply(BigInteger.valueOf(-1)); //negating y- coordinate
 		return q;
 	}
 
+	/*
+	 * pointAddition: function to adding Two points p1 and p2 in the EC
+	 * n: order of the field of EC
+	 */
 	public static BigInteger[] pointAddition(BigInteger[] p1, BigInteger[] p2, BigInteger n) {
 		BigInteger[] val = new BigInteger[2];
 
@@ -27,6 +39,11 @@ public class ECOperations {
 		return val;
 	}
 
+	/*
+	 * pointDoubling: function to double a point p1 in the EC
+	 * n: order of the field EC
+	 * a: variable a of the EC equation
+	 */
 	public static BigInteger[] pointDoubling(BigInteger[] p1, BigInteger n, BigInteger a) {
 		BigInteger[] val = new BigInteger[2];
 
@@ -42,6 +59,11 @@ public class ECOperations {
 		return val;
 	}
 
+	/*
+	 * pointDoubling: function to multiply a point p1 in the EC by an integer mult
+	 * n: order of the field EC
+	 * a: variable a of the EC equation
+	 */
 	public static BigInteger[] pointMultiply(BigInteger[] p1, BigInteger n, BigInteger a, BigInteger mult) {
 		BigInteger[] val = new BigInteger[2];
 		BigInteger[] doubledP = p1;
@@ -66,12 +88,10 @@ public class ECOperations {
 		return val;
 	}
 
-
-	
-	
-	//public addInfinity
- 
+	/*
+	 * printPoint: function to print the point in co-ordinate form
+	 */
 	public static String printPoint(BigInteger[] p) {
-		return "Result: ("+ p[0].toString() +","+p[1].toString()+")";
+		return "("+ p[0].toString() +","+p[1].toString()+")";
 	}
 }

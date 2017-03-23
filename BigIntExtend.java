@@ -1,3 +1,9 @@
+/*
+ * File: BigIntExtend.java
+ * Author: Kalyan Parajuli
+ * Role: A class with a function to get a random BigInteger less that a BigInteger
+ */
+
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -8,7 +14,8 @@ public class BigIntExtend {
 		Random rnd = new Random();
 		do {
 		    r = new BigInteger(n.bitLength(), rnd);
-		} while (r.compareTo(n) >= 0); //ALSO greate than 0
+		} while (r.compareTo(n) >= 0); //ALSO greater than 0
 		return r;
 	}
+	
 }
